@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    - cron: '42 21 * * *'
+    - cron: '49 23 * * *'
 
 jobs:
   scheduled:
@@ -22,9 +22,13 @@ jobs:
       run: |-
         cd openwrt-imagebuilder-ramips-mt76x8.Linux-x86_64
         make image PROFILE="tplink_tl-mr6400-v4" PACKAGES="modemmanager"
+    - name: generate-tag-name
+      run: echo "TAG_NAME=refs/tags/v$(date '+%Y%m%d')" >> $GITHUB_ENV
     - name: release
-      uses: alexellis/upload-assets@0.2.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: svenstaro/upload-release-action@v2
       with:
-        asset_paths: '["./openwrt-imagebuilder-ramips-mt76x8.Linux-x86_64/bin/targets/ramips/mt76x8/*.bin"]'
+        body: "OpenWrt for TP-Link TL-MR6400 V4 with ModemManager included."
+        file: openwrt-imagebuilder-ramips-mt76x8.Linux-x86_64/bin/targets/ramips/mt76x8/*.bin
+        file_glob: true
+        tag: ${{ env.TAG_NAME }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
