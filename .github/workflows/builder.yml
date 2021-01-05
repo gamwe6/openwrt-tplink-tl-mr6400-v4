@@ -23,9 +23,8 @@ jobs:
         cd openwrt-imagebuilder-ramips-mt76x8.Linux-x86_64
         make image PROFILE="tplink_tl-mr6400-v4" PACKAGES="modemmanager"
     - name: release
-      uses: alexellis/upload-assets@0.2.3
+      uses: alexellis/upload-assets@0.2.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         asset_paths: '["./openwrt-imagebuilder-ramips-mt76x8.Linux-x86_64/bin/targets/ramips/mt76x8/*.bin"]'
-
