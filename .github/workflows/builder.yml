@@ -27,5 +27,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        asset_paths: '["./bin/targets/ramips/mt76x8/*.bin"]'
+        asset_paths: '["./openwrt-imagebuilder-ramips-mt76x8.Linux-x86_64/bin/targets/ramips/mt76x8/*.bin"]'
 
